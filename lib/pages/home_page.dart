@@ -1,11 +1,20 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:modernlogintute/components/Bottom_nav_bar.dart';
+import 'package:modernlogintute/pages/shop_page.dart';
 
-class HomePage extends StatelessWidget {
-  HomePage({Key? key});
+import 'cart_page.dart';
 
+class HomePage extends StatefulWidget {
+  HomePage({super.key});
+
+  State<HomePage> createState() => _homePageState();
+}
+
+class _homePageState extends State<HomePage> {
   final user = FirebaseAuth.instance.currentUser!;
+  int _selectedIndex = 0;
 
   //SignUserOut
   void signUserOut() {
@@ -13,17 +22,144 @@ class HomePage extends StatelessWidget {
     FirebaseAuth.instance.signOut();
   }
 
+  //Metodo para actualizar el indice
+  void navigateBottomBar(int index) {
+    setState(() {
+      _selectedIndex = index;
+    });
+  }
+
+  //paginas a desplegar
+  final List<Widget> _pages = [
+    //Pagina de Tienda
+    const ShopPage(),
+
+    //Pagina de Carrito
+    const CartPage(),
+  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        actions: [IconButton(onPressed: signUserOut, icon: Icon(Icons.logout))],
+      backgroundColor: Colors.grey[300],
+      bottomNavigationBar: MyBottomNavBar(
+        onTabChange: (index) => navigateBottomBar(index),
       ),
-      body: Center(
-          child: Text(
-        "Logged In As: " + user.email!,
-        style: TextStyle(fontSize: 20),
-      )),
+      appBar: AppBar(
+        backgroundColor: Colors.transparent,
+        elevation: 0,
+        leading: Builder(
+          builder: (context) => IconButton(
+            onPressed: () {
+              Scaffold.of(context).openDrawer();
+            },
+            icon: const Padding(
+              padding: EdgeInsets.only(left: 12.0),
+              child: Icon(
+                Icons.menu,
+                color: Colors.black,
+              ),
+            ),
+          ),
+        ),
+      ),
+      drawer: Drawer(
+        backgroundColor: Colors.grey[900],
+        child: Column(
+            mainAxisAlignment:
+                MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                children: [
+                  //logo
+                  DrawerHeader(
+                      child: Image.asset(
+                          'lib/images/Logo1.png')),
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 25),
+                    child: Divider(
+                      color: Colors.grey[800],
+                    ),
+                  ),
+
+                  //Other Pages
+                  const Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(Icons.home_rounded,
+                          color: Colors.white),
+                      title: Text(
+                        'Home',
+                        style:
+                            TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+
+                  const Padding(
+                    padding: EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: Icon(Icons.info,
+                          color: Colors.white),
+                      title: Text(
+                        'Sobre Nosotros',
+                        style:
+                            TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+
+                  Padding(
+                    padding: EdgeInsets.only(
+                        left: 25.0, bottom: 25),
+                    child: ListTile(
+                      leading: const Icon(
+                          Icons.logout_rounded,
+                          color: Colors.white),
+                      title: const Text(
+                        'Cerrar Sesion',
+                        style:
+                            TextStyle(color: Colors.white),
+                      ),
+                      onTap: () {
+                        signUserOut();
+                      },
+                    ),
+                  ),
+                ],
+              ),
+            ]),
+      ),
+      body: _pages[_selectedIndex],
     );
   }
 }
+
+
+
+  /* Codigo para cargar imagenes de firebase
+    onPressed: () async {
+    final results = await FilePicker.platform.pickFiles(
+    allowMultiple: false,
+
+type: FileType.custom,
+    allowedExtensions: ['png', 'jpg', 'jpeg'],
+    );
+    if (results == null) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      const SnackBar(
+      content: Text("No file has been selected."),
+      ),
+    );
+    return null;
+    }
+    final path = results.files.single.path;
+    final fileName = results.files.single.name;
+    storage
+      .uploadFile(path!, fileName)
+      .then((value) => print('Done'));
+    print(path);
+    print(fileName);
+},
+  */
