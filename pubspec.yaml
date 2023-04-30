@@ -43,6 +43,7 @@ dependencies:
   firebase_storage: ^11.1.1
   google_nav_bar: ^5.0.6
   provider:
+  cloud_firestore: ^4.5.3
 
 dev_dependencies:
   flutter_test:

@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:modernlogintute/models/producto.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class Cart extends ChangeNotifier {
   //list of shoes for sale
@@ -70,5 +72,13 @@ class Cart extends ChangeNotifier {
   void quitarProductoDelCarrito(Producto producto) {
     carritoUsuario.remove(producto);
     notifyListeners();
+  }
+
+  String calcularTotal() {
+    double precioTotal = 0;
+    for (var i = 0; i < carritoUsuario.length; i++) {
+      precioTotal += double.parse(carritoUsuario[i].precio);
+    }
+    return precioTotal.toStringAsFixed(2);
   }
 }
