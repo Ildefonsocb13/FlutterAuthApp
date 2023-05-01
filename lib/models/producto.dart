@@ -7,7 +7,7 @@ class Producto {
   final String idVendedor;
   final String descripcion;
   final String precio;
-  final String imagen;
+  String imagen;
 
   Producto({
     required this.id,

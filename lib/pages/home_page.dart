@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
@@ -35,6 +37,7 @@ class _homePageState extends State<HomePage> {
   //paginas a desplegar
   final List<Widget> _pages = [
     //Pagina de Tienda
+
     ShopPage(),
 
     //Pagina de Carrito
@@ -132,23 +135,43 @@ class _homePageState extends State<HomePage> {
                     padding:
                         const EdgeInsets.only(left: 25.0),
                     child: ListTile(
-                      leading: const Icon(Icons.info,
-                          color: Colors.white),
-                      title: const Text(
-                        'Sobre Nosotros',
-                        style:
-                            TextStyle(color: Colors.white),
-                      ),
-                      onTap: () {
-                        FirestoreService firestoreService =
-                            FirestoreService();
-                        firestoreService.agregarProductos();
-                      },
-                    ),
+                        leading: const Icon(Icons.info,
+                            color: Colors.white),
+                        title: const Text(
+                          'Sobre Nosotros',
+                          style: TextStyle(
+                              color: Colors.white),
+                        ),
+                        onTap: () async {
+                          FirestoreService
+                              firestoreService =
+                              FirestoreService();
+
+                          firestoreService
+                              .agregarProducto();
+                          //Consigo el path de la imagen a subir
+                          /*File path = await firestoreService
+                              .getPath();
+                          print(path);
+                          //Consigo la URL de la imagen subida
+                          if (path.existsSync()) {
+                            String url =
+                                await firestoreService
+                                    .subirImagen(
+                                        path,
+                                        firestoreService
+                                            .getNombre());
+                            firestoreService
+                                .agregarProductos(url);
+                          } else {
+                            print(
+                                "File does not exist at the specified path.");
+                          }*/
+                        }),
                   ),
 
                   Padding(
-                    padding: EdgeInsets.only(
+                    padding: const EdgeInsets.only(
                         left: 25.0, bottom: 25),
                     child: ListTile(
                       leading: const Icon(

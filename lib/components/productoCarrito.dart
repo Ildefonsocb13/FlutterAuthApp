@@ -49,14 +49,48 @@ class _ProductoCarritoState extends State<ProductoCarrito> {
               side: BorderSide(color: Colors.grey),
               shape: CircleBorder(),
             ),
-            Image.asset(
-              widget.producto.imagen,
-              width: 50,
-              height: 50,
+            SizedBox(
+              width: 10,
             ),
-            SizedBox(width: 8),
-            Text('\$${widget.producto.precio}   '),
-            Text(widget.producto.nombre),
+            ClipRRect(
+              borderRadius: BorderRadius.circular(8),
+              child: Image.asset(
+                widget.producto.imagen,
+                width: 60,
+                height: 60,
+                fit: BoxFit.cover,
+              ),
+            ),
+            SizedBox(
+              width: 10,
+            ),
+            Expanded(
+              child: Column(
+                crossAxisAlignment:
+                    CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    widget.producto.nombre,
+                    style: TextStyle(
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                    maxLines: 1,
+                  ),
+                  SizedBox(
+                    height: 5,
+                  ),
+                  Text(
+                    '\$${widget.producto.precio}',
+                    style: TextStyle(
+                      color: Colors.grey,
+                      fontSize: 14,
+                    ),
+                  ),
+                ],
+              ),
+            ),
           ],
         ),
         trailing: IconButton(

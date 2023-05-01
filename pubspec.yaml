@@ -44,6 +44,7 @@ dependencies:
   google_nav_bar: ^5.0.6
   provider:
   cloud_firestore: ^4.5.3
+  path_provider: ^2.0.14
 
 dev_dependencies:
   flutter_test:

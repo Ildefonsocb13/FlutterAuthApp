@@ -13,19 +13,24 @@ class MejoresOfertas extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: EdgeInsets.only(left: 25),
+      margin: const EdgeInsets.only(left: 25),
       width: 280,
       decoration: BoxDecoration(
-        color: Colors.grey[100],
+        color: Colors.white,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          //Imagen Producto
-          ClipRRect(
-            borderRadius: BorderRadius.circular(12),
-            child: Image.asset(producto.imagen),
+          SizedBox(
+            height: 150, // ajusta la altura a tu gusto
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(12),
+              child: Image.asset(
+                producto.imagen,
+                fit: BoxFit.cover,
+              ),
+            ),
           ),
           //Descripcion
           Padding(
@@ -54,7 +59,7 @@ class MejoresOfertas extends StatelessWidget {
                     //nombre producto
                     Text(
                       producto.nombre,
-                      style: TextStyle(
+                      style: const TextStyle(
                         fontWeight: FontWeight.bold,
                         fontSize: 20,
                       ),
@@ -66,7 +71,7 @@ class MejoresOfertas extends StatelessWidget {
 
                     //precio
                     Text(
-                      '\$' + producto.precio,
+                      '\$${producto.precio}',
                       style: const TextStyle(
                         color: Colors.grey,
                       ),
@@ -78,7 +83,7 @@ class MejoresOfertas extends StatelessWidget {
                 GestureDetector(
                   onTap: onTap,
                   child: Container(
-                    padding: EdgeInsets.all(20),
+                    padding: const EdgeInsets.all(20),
                     decoration: const BoxDecoration(
                       color: Colors.black,
                       borderRadius: BorderRadius.only(
@@ -86,7 +91,7 @@ class MejoresOfertas extends StatelessWidget {
                         bottomRight: Radius.circular(12),
                       ),
                     ),
-                    child: Icon(
+                    child: const Icon(
                       Icons.add,
                       color: Colors.white,
                     ),
