@@ -37,6 +37,7 @@ class _LoginPageState extends State<LoginPage> {
         email: emailController.text,
         password: passwordController.text,
       );
+      //Navigator.pop(context);
       //pop the loading circle
     } on FirebaseAuthException catch (e) {
       //pop the loading circle
@@ -63,7 +64,6 @@ class _LoginPageState extends State<LoginPage> {
         print('El usuario fue desaactivado');
       }
     }
-    // ignore: use_build_context_synchronously
     Navigator.pop(context);
   }
 

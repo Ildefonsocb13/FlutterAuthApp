@@ -5,6 +5,7 @@ import 'package:modernlogintute/components/Bottom_nav_bar.dart';
 import 'package:modernlogintute/pages/shop_page.dart';
 import 'package:provider/provider.dart';
 
+import '../components/uploadProduct.dart';
 import '../models/cart.dart';
 import 'cart_page.dart';
 
@@ -99,6 +100,21 @@ class _homePageState extends State<HomePage> {
                   ),
 
                   //Other Pages
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 25.0),
+                    child: ListTile(
+                      leading: const Icon(
+                          Icons.person_2_rounded,
+                          color: Colors.white),
+                      title: Text(
+                        user.email!,
+                        style:
+                            TextStyle(color: Colors.white),
+                      ),
+                    ),
+                  ),
+
                   const Padding(
                     padding: EdgeInsets.only(left: 25.0),
                     child: ListTile(
@@ -112,16 +128,22 @@ class _homePageState extends State<HomePage> {
                     ),
                   ),
 
-                  const Padding(
-                    padding: EdgeInsets.only(left: 25.0),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 25.0),
                     child: ListTile(
-                      leading: Icon(Icons.info,
+                      leading: const Icon(Icons.info,
                           color: Colors.white),
-                      title: Text(
+                      title: const Text(
                         'Sobre Nosotros',
                         style:
                             TextStyle(color: Colors.white),
                       ),
+                      onTap: () {
+                        FirestoreService firestoreService =
+                            FirestoreService();
+                        firestoreService.agregarProductos();
+                      },
                     ),
                   ),
 

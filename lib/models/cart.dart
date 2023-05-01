@@ -23,6 +23,10 @@ class Cart extends ChangeNotifier {
       _carritoUsuario = productosCarrito;
       notifyListeners();
     });
+    /*cargarProductosFirestore().then((productos) {
+    productoShop = productos;
+    notifyListeners();
+  });*/
   }
 
   //Cargar carro del usuario desde Firestore
@@ -80,6 +84,44 @@ class Cart extends ChangeNotifier {
         print('- ${producto.nombre}');
       });
     }
+  }
+
+  //get list of shoes for sale
+
+  List<Producto> getListaProductos() {
+    return productoShop;
+  }
+
+  //get cart
+  List<Producto> getCarritoUsuario() {
+    return _carritoUsuario;
+  }
+
+  //add items to cart
+  Future<void> agregarProductoAlCarrito(
+      Producto producto) async {
+    _usuarioActual = FirebaseAuth.instance.currentUser;
+
+    _carritoUsuario.add(producto);
+    await actualizarCarritoFirestore();
+    notifyListeners();
+  }
+
+  //remove item from cart
+  Future<void> quitarProductoDelCarrito(
+      Producto producto) async {
+    _carritoUsuario.remove(producto);
+    await actualizarCarritoFirestore();
+    notifyListeners();
+  }
+
+  String calcularTotal() {
+    double precioTotal = 0;
+    for (var i = 0; i < _carritoUsuario.length; i++) {
+      precioTotal +=
+          double.parse(_carritoUsuario[i].precio);
+    }
+    return precioTotal.toStringAsFixed(2);
   }
 
   //List of vendedores
@@ -158,41 +200,31 @@ class Cart extends ChangeNotifier {
     ),
   ];
 
-  //get list of shoes for sale
+  Future<List<Producto>> cargarProductos() async {
+    final QuerySnapshot productosSnapshot =
+        await FirebaseFirestore.instance
+            .collection('productos')
+            .get();
 
-  List<Producto> getListaProductos() {
-    return productoShop;
+    final List<Producto> productos = productosSnapshot.docs
+        .map((productoDoc) => Producto.fromMap(
+            productoDoc.data() as Map<String, dynamic>))
+        .toList();
+
+    return productos;
   }
+}
 
-  //get cart
-  List<Producto> getCarritoUsuario() {
-    return _carritoUsuario;
-  }
+Future<List<Producto>> cargarProductosFirestore() async {
+  final QuerySnapshot productosSnapshot =
+      await FirebaseFirestore.instance
+          .collection('productos')
+          .get();
 
-  //add items to cart
-  Future<void> agregarProductoAlCarrito(
-      Producto producto) async {
-    _usuarioActual = FirebaseAuth.instance.currentUser;
+  final List<Producto> productos = productosSnapshot.docs
+      .map((productoDoc) => Producto.fromMap(
+          productoDoc.data() as Map<String, dynamic>))
+      .toList();
 
-    _carritoUsuario.add(producto);
-    await actualizarCarritoFirestore();
-    notifyListeners();
-  }
-
-  //remove item from cart
-  Future<void> quitarProductoDelCarrito(
-      Producto producto) async {
-    _carritoUsuario.remove(producto);
-    await actualizarCarritoFirestore();
-    notifyListeners();
-  }
-
-  String calcularTotal() {
-    double precioTotal = 0;
-    for (var i = 0; i < _carritoUsuario.length; i++) {
-      precioTotal +=
-          double.parse(_carritoUsuario[i].precio);
-    }
-    return precioTotal.toStringAsFixed(2);
-  }
+  return productos;
 }
