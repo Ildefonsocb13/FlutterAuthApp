@@ -95,13 +95,6 @@ class _ShopPageState extends State<ShopPage> {
                 //get a product from shop list
                 Producto producto =
                     value.getListaProductos()[index];
-                /*Producto(
-                    id: '1',
-                    nombre: 'Coca Cola',
-                    nombreEmpresa: 'Coca Cola Company',
-                    descripcion: 'estee una coca de 600ml',
-                    precio: '16',
-                    imagen: 'lib/images/coca-cola.jpg');*/
                 //return the product
                 return MejoresOfertas(
                   producto: producto,

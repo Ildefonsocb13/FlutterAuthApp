@@ -1,3 +1,4 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:modernlogintute/models/cart.dart';
@@ -20,9 +21,11 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
       create: (context) => Cart(),
-      builder: (context, child) => const MaterialApp(
+      builder: (context, child) => MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: AuthPage(),
+        key: ValueKey(
+            FirebaseAuth.instance.currentUser?.uid),
+        home: const AuthPage(),
       ),
     );
   }

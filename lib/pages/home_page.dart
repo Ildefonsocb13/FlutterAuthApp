@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:modernlogintute/components/Bottom_nav_bar.dart';
 import 'package:modernlogintute/pages/shop_page.dart';
+import 'package:provider/provider.dart';
 
+import '../models/cart.dart';
 import 'cart_page.dart';
 
 class HomePage extends StatefulWidget {
@@ -32,11 +34,24 @@ class _homePageState extends State<HomePage> {
   //paginas a desplegar
   final List<Widget> _pages = [
     //Pagina de Tienda
-    const ShopPage(),
+    ShopPage(),
 
     //Pagina de Carrito
-    const CartPage(),
+    CartPage(),
   ];
+
+  @override
+  void didUpdateWidget(covariant HomePage oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    final User? currentUser =
+        FirebaseAuth.instance.currentUser;
+    if (currentUser != null && currentUser != user) {
+      // El usuario ha cambiado, actualizar el carrito
+      Provider.of<Cart>(context, listen: false)
+          .cargarCarritoUsuario();
+    }
+  }
 
   @override
   Widget build(BuildContext context) {

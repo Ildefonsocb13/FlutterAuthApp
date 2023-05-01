@@ -32,19 +32,20 @@ class _LoginPageState extends State<LoginPage> {
 
     //Try Sign in
     try {
-      await FirebaseAuth.instance.signInWithEmailAndPassword(
+      await FirebaseAuth.instance
+          .signInWithEmailAndPassword(
         email: emailController.text,
         password: passwordController.text,
       );
       //pop the loading circle
-      Navigator.pop(context);
     } on FirebaseAuthException catch (e) {
       //pop the loading circle
       Navigator.pop(context);
       //Wrong Email
       if (e.code == 'user-not-found') {
         showErrorMessage('Correo Incorrecto');
-        print('No se ha encontrado un usuario para ese correo');
+        print(
+            'No se ha encontrado un usuario para ese correo');
       }
       //Wrong Password
       else if (e.code == 'wrong-password') {
@@ -62,6 +63,8 @@ class _LoginPageState extends State<LoginPage> {
         print('El usuario fue desaactivado');
       }
     }
+    // ignore: use_build_context_synchronously
+    Navigator.pop(context);
   }
 
   //Wrong Email
@@ -74,7 +77,8 @@ class _LoginPageState extends State<LoginPage> {
           title: Center(
             child: Text(
               message,
-              style: const TextStyle(color: Colors.lightBlue),
+              style:
+                  const TextStyle(color: Colors.lightBlue),
             ),
           ),
         );
@@ -94,7 +98,9 @@ class _LoginPageState extends State<LoginPage> {
               const SizedBox(height: 50),
 
               // logo
-              SquareTile(onTap: () {}, imagePath: 'lib/images/Logo1.png'),
+              SquareTile(
+                  onTap: () {},
+                  imagePath: 'lib/images/Logo1.png'),
 
               const SizedBox(height: 50),
 
@@ -129,14 +135,16 @@ class _LoginPageState extends State<LoginPage> {
 
               // forgot password?
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 25.0),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.end,
                   children: const [
                     Text(
                       'Olvidaste contrasena?',
-                      style:
-                          TextStyle(color: Color.fromARGB(255, 255, 249, 249)),
+                      style: TextStyle(
+                          color: Color.fromARGB(
+                              255, 255, 249, 249)),
                     ),
                   ],
                 ),
@@ -154,27 +162,32 @@ class _LoginPageState extends State<LoginPage> {
 
               // or continue with
               Padding(
-                padding: const EdgeInsets.symmetric(horizontal: 25.0),
+                padding: const EdgeInsets.symmetric(
+                    horizontal: 25.0),
                 child: Row(
                   children: const [
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
-                        color: Color.fromARGB(255, 255, 249, 249),
+                        color: Color.fromARGB(
+                            255, 255, 249, 249),
                       ),
                     ),
                     Padding(
-                      padding: EdgeInsets.symmetric(horizontal: 10.0),
+                      padding: EdgeInsets.symmetric(
+                          horizontal: 10.0),
                       child: Text(
                         'Tambien puedes con...',
                         style: TextStyle(
-                            color: Color.fromARGB(255, 255, 249, 249)),
+                            color: Color.fromARGB(
+                                255, 255, 249, 249)),
                       ),
                     ),
                     Expanded(
                       child: Divider(
                         thickness: 0.5,
-                        color: Color.fromARGB(255, 255, 249, 249),
+                        color: Color.fromARGB(
+                            255, 255, 249, 249),
                       ),
                     ),
                   ],
@@ -189,13 +202,16 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   // google button
                   SquareTile(
-                      onTap: () => AuthService().signInWithGoogle(),
+                      onTap: () =>
+                          AuthService().signInWithGoogle(),
                       imagePath: 'lib/images/google.png'),
 
                   SizedBox(width: 25),
 
                   // apple button
-                  SquareTile(onTap: () {}, imagePath: 'lib/images/apple.png')
+                  SquareTile(
+                      onTap: () {},
+                      imagePath: 'lib/images/apple.png')
                 ],
               ),
 
@@ -207,7 +223,9 @@ class _LoginPageState extends State<LoginPage> {
                 children: [
                   const Text(
                     'No eres miembro?',
-                    style: TextStyle(color: Color.fromARGB(255, 255, 249, 249)),
+                    style: TextStyle(
+                        color: Color.fromARGB(
+                            255, 255, 249, 249)),
                   ),
                   SizedBox(width: 4),
                   GestureDetector(

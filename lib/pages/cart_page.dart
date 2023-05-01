@@ -5,8 +5,24 @@ import 'package:provider/provider.dart';
 
 import '../components/productoCarrito.dart';
 
-class CartPage extends StatelessWidget {
+class CartPage extends StatefulWidget {
   const CartPage({super.key});
+
+  @override
+  _CartPageState createState() => _CartPageState();
+}
+
+class _CartPageState extends State<CartPage> {
+  @override
+  void initState() {
+    super.initState();
+    Provider.of<Cart>(context, listen: false)
+        .cargarCarritoUsuario()
+        .then((productos) {
+      Provider.of<Cart>(context, listen: false)
+          .carritoUsuario = productos;
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
