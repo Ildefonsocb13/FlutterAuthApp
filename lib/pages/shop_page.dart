@@ -3,6 +3,7 @@ import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:modernlogintute/models/cart.dart';
 import 'package:modernlogintute/models/producto.dart';
+import 'package:modernlogintute/pages/search_page.dart';
 import 'package:provider/provider.dart';
 import '../components/mejoresOfertas.dart';
 
@@ -57,23 +58,32 @@ class _ShopPageState extends State<ShopPage> {
           children: [
             // Search bar
             Container(
-              padding: const EdgeInsets.all(12),
+              padding: const EdgeInsets.symmetric(
+                  vertical: 2, horizontal: 25),
               margin: const EdgeInsets.symmetric(
                   horizontal: 25),
               decoration: BoxDecoration(
-                  color: Colors.grey[200],
-                  borderRadius: BorderRadius.circular(8)),
-              child: Row(
-                mainAxisAlignment:
-                    MainAxisAlignment.spaceBetween,
-                children: const [
-                  Text(
-                    'Buscar',
-                    style: TextStyle(color: Colors.grey),
-                  ),
-                  Icon(Icons.search_rounded,
+                color: Colors.grey[200],
+                borderRadius: BorderRadius.circular(8),
+              ),
+              child: TextField(
+                decoration: const InputDecoration(
+                  hintText: 'Buscar',
+                  hintStyle: TextStyle(color: Colors.grey),
+                  border: InputBorder.none,
+                  suffixIcon: Icon(Icons.search_rounded,
                       color: Colors.grey),
-                ],
+                ),
+                textAlignVertical: TextAlignVertical.center,
+                onSubmitted: (value) {
+                  /*Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                          builder: ((context) => SearchPage(
+                              searchText: value))));*/
+                  // Aquí puedes realizar la búsqueda con el valor ingresado
+                  print('Buscando $value');
+                },
               ),
             ),
 
