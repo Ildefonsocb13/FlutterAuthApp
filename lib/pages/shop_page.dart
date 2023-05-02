@@ -8,18 +8,21 @@ import 'package:provider/provider.dart';
 import '../components/mejoresOfertas.dart';
 
 class ShopPage extends StatefulWidget {
-  const ShopPage({super.key});
+  const ShopPage(
+      {super.key}); // Constructor de la clase ShopPage
 
   @override
-  State<ShopPage> createState() => _ShopPageState();
+  State<ShopPage> createState() =>
+      _ShopPageState(); // Creamos el estado de la página
 }
 
 class _ShopPageState extends State<ShopPage> {
-  //add product to cart
+  // Método para agregar un producto al carrito
   void agregarProductoAlCarrito(Producto producto) {
     Provider.of<Cart>(context, listen: false)
-        .agregarProductoAlCarrito(producto);
-    //alert the user, product succesfully added
+        .agregarProductoAlCarrito(
+            producto); // Usamos la clase Cart y su método agregarProductoAlCarrito() para agregar el producto al carrito
+    // Mostramos un mensaje de confirmación al usuario
     showDialog(
       context: context,
       builder: (context) => const AlertDialog(
@@ -29,22 +32,24 @@ class _ShopPageState extends State<ShopPage> {
     );
   }
 
-  final Random _random = Random();
+  final Random _random =
+      Random(); // Creamos una instancia de la clase Random
   final List<String> _messages = [
     'Ahorrar no es solo guardar, sino saber gastar',
     'Ahorra para lo que realmente importa',
     'El ahorro no es sacrificio, es inversión en tu futuro',
-  ];
+  ]; // Creamos una lista de mensajes
 
   String _getRandomMessage() {
-    return _messages[_random.nextInt(_messages.length)];
+    return _messages[_random.nextInt(_messages
+        .length)]; // Obtenemos un mensaje aleatorio de la lista
   }
 
   int countProductsById(
       String id, List<Producto> productos) {
     return productos
         .where((producto) => producto.idVendedor == id)
-        .length;
+        .length; // Contamos la cantidad de productos que pertenecen a un vendedor específico
   }
 
   @override
@@ -56,7 +61,7 @@ class _ShopPageState extends State<ShopPage> {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            // Search bar
+            // Barra de búsqueda
             Container(
               padding: const EdgeInsets.symmetric(
                   vertical: 2, horizontal: 25),
@@ -87,7 +92,7 @@ class _ShopPageState extends State<ShopPage> {
               ),
             ),
 
-            // Message
+            // Mensaje aleatorio
             Padding(
               padding: const EdgeInsets.symmetric(
                   vertical: 25.0, horizontal: 50),
