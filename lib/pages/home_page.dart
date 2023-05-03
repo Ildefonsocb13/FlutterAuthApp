@@ -38,10 +38,10 @@ class _homePageState extends State<HomePage> {
   final List<Widget> _pages = [
     //Pagina de Tienda
 
-    ShopPage(),
+    const ShopPage(),
 
     //Pagina de Carrito
-    CartPage(),
+    const CartPage(),
   ];
 
   @override
@@ -112,22 +112,26 @@ class _homePageState extends State<HomePage> {
                           color: Colors.white),
                       title: Text(
                         user.email!,
-                        style:
-                            TextStyle(color: Colors.white),
+                        style: const TextStyle(
+                            color: Colors.white),
                       ),
+                      onTap: () {},
                     ),
                   ),
 
-                  const Padding(
-                    padding: EdgeInsets.only(left: 25.0),
+                  Padding(
+                    padding:
+                        const EdgeInsets.only(left: 25.0),
                     child: ListTile(
-                      leading: Icon(Icons.home_rounded,
+                      leading: const Icon(
+                          Icons.home_rounded,
                           color: Colors.white),
-                      title: Text(
+                      title: const Text(
                         'Home',
                         style:
                             TextStyle(color: Colors.white),
                       ),
+                      onTap: () {},
                     ),
                   ),
 
